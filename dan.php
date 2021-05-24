@@ -1,7 +1,30 @@
 <?php
-$name = "홍길순";
-$age = 14;
+$dan = 6
 ?>
-<?php for ( $i = 1; $i <= 10; $i++ ) { ?>
-안녕하세요. 저는 <?=$name?>, <?=$age?>살 입니다.
-<?php } ?> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><?=$dan?>단</title>
+
+  <link rel="stylesheet" href="common.css">
+</head>
+<body>
+  <h1><?=$dan?>단</h1>
+
+  <hr>
+  <?php for ($i = 1; $i <=9; $i++) { ?>
+    <div>
+    <?= $dan?> * <?=$i?> = <?=$dan * $i?>
+    </div>
+  <?php } ?>
+
+
+  <hr>
+
+  <a href="1단.html">1단</a>
+  <a href="2단.html">2단</a>
+</body>
+</html> 
