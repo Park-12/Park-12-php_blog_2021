@@ -8,6 +8,12 @@
 </head>
 <body>
     <h1>게시물 작성</h1>
+
+    <div>
+    <a href="list.php">글 리스트</a>
+  </div>
+  <hr>
+  
     <hr>
 
     <form action="doWrite.php">
