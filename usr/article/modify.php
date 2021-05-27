@@ -40,6 +40,7 @@ if ( $article == null) {
     <hr>
 
     <form action="doModify.php">
+    <input type="hidden" name="id" value="<?=$id?>">
     <div>
     <span>번호</span>
     <span><?=$article['id']?></span>
