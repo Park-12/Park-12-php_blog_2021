@@ -1,5 +1,5 @@
 <?php
-$dbConn = mysqli_connect("127.0.0.1", "park", "park123414", "php_blog_2021") or die("DB CONNECTION ERROR");
+require_once $_SERVER['DOCUMENT_ROOT'] . '/webinit.php';
 
 if (isset($_GET['id']) == false) {
     echo "id를 입력해주세요";
@@ -13,8 +13,7 @@ select *
 from article as A
 where A.id = '${id}'
 ";
-$rs = mysqli_query($dbConn, $sql);
-$article = mysqli_fetch_assoc($rs);
+$article = DB__getRow($sql);
 
 if ( $article == null) {
     echo "{$id}번 게시물은 존재하지 않습니다.";
