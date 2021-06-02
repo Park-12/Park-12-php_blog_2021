@@ -1,5 +1,5 @@
 <?php
-$dbConn = mysqli_connect("127.0.0.1", "park", "park123414", "php_blog_2021") or die("DB CONNECTION ERROR");
+require_once $_SERVER['DOCUMENT_ROOT'] . '/webinit.php';
 
 if ( isset($_GET['id']) == false ) {
   echo "id을 입력해주세요.";
