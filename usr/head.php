@@ -12,6 +12,15 @@
     <?php if ( !isset($_SESSION['loginedMemberId']) ) { ?>
     <a href="../member/login.php">로그인</a>
     <?php } ?> 
-    <?php IF ( isset($_SESSION['loginedMemberId']) ) { ?>
+
+    <?php if ( isset($_SESSION['loginedMemberId']) ) { ?>
+    <a href="../article/write.php">글 작성</a>
+    <?php } ?>
+
+    <?php if ( isset($_SESSION['loginedMemberId']) ) { ?>
     <a href="../member/doLogout.php">로그아웃</a>
+    <?php } ?>
+
+    <?php if ( !isset($_SESSION['loginedMemberId']) ) { ?>
+    <a href="../member/join.php">회원가입</a>
     <?php } ?>

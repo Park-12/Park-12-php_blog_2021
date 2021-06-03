@@ -17,6 +17,7 @@ $pageTitle = "로그인";
 
   <div>
     <input type="submit" value = "로그인">
+    <input onclick="location.href='./join.php'" type = "submit" value = "회원가입">
   </div>
 </form>
 <?php require_once __DIR__ . "/../foot.php"; ?> 
