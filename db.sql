@@ -35,3 +35,17 @@ SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목4',
 `body` = '내용4';
+
+create table `member`(
+	id int(10) unsigned not null primary key auto_increment,
+	regDate datetime not null,
+	updateDate datetime not null,
+	userId varchar(100) not null,
+	userPw varchar(100) not null,
+	userPwc varchar(100) not null,
+	`name` varchar(100) not null,
+	nickname varchar(100) not null,
+	cellphone varchar(100) not null,
+	email varchar(100) not null
+);
+

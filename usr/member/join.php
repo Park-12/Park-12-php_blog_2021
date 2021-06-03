@@ -18,7 +18,7 @@ $pageTitle = "회원가입";
 
   <div>
     <span>비밀번호 확인</span>
-    <input required placeholder="비밀번호를 다시 입력해주세요." type="password" name = "userPwc">
+    <input required placeholder="비밀번호를 한번 더 입력해주세요." type="password" name = "userPwc">
   </div>
 
   <div>

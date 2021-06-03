@@ -12,7 +12,7 @@ $sql = "
 DELETE FROM article
 WHERE id = '$id'
 ";
-mysqli_query($dbConn, $sql);
+DB__delete($sql);
 
 ?>
 <script>
