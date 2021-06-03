@@ -1,24 +1,22 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/webinit.php';
 
-if ( isset($_GET['id']) == false ) {
-  echo "id을 입력해주세요.";
-  exit;
+$id = getIntValueOr($_GET['id'], 0);
+$title = getStrValueOr($_GET['title'], 0);
+$body = getStrValueOr($_GET['body'], 0);
+
+if ( $id == 0 ) {
+  jsHistoryBackExit("번호를 입력해주세요.");
 }
 
-if ( isset($_GET['title']) == false ) {
-  echo "title을 입력해주세요.";
-  exit;
+if ( !$title ) {
+  jsHistoryBackExit("제목을 입력해주세요.");
 }
 
-if ( isset($_GET['body']) == false ) {
-  echo "body를 입력해주세요.";
-  exit;
+if ( !$body ) {
+  jsHistoryBackExit("내용을 입력해주세요.");
 }
 
-$id = intval($_GET['id']);
-$title = $_GET['title'];
-$body = $_GET['body'];
 
 $sql = "
 UPDATE article
@@ -28,7 +26,7 @@ title = '${title}',
 `body` = '${body}'
 WHERE id = '${id}'
 ";
-mysqli_query($dbConn, $sql);
+DB__modify($sql);
 
 ?>
 <script>

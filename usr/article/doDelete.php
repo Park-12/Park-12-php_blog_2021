@@ -1,12 +1,12 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/webinit.php';
 
-if ( isset($_GET['id']) == false ) {
-  echo "id을 입력해주세요.";
-  exit;
+$id = getIntValueOr($_GET['id'], 0);
+
+if ( $id == 0 ) {
+  jsHistoryBackExit("번호를 입력해주세요.");
 }
 
-$id = intval($_GET['id']);
 
 $sql = "
 DELETE FROM article
