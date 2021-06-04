@@ -26,7 +26,7 @@
     <?php } ?>
 
     <?php if ( isset($_SESSION['loginedMemberId']) ) { ?>
-        <a href="../member/join.php">회원탈퇴</a>
+        <a onclick="if ( confirm('정말 탈퇴 하시겠습니까?') == false ) return false;" href="../member/doDelete.php?id=<?=$_SESSION['loginedMemberId']?>">회원 탈퇴</a>
     <?php } ?>
 
     <?php if ( !isset($_SESSION['loginedMemberId']) ) { ?>
