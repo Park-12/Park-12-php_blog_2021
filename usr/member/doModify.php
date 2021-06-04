@@ -1,24 +1,23 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/webinit.php';
 
-$id = getIntValueOr($_GET['id'], 0);
-$title = getStrValueOr($_GET['title'], 0);
-$body = getStrValueOr($_GET['body'], 0);
+$id = getIntValueOr($_SESSION['loginedMemberId'], 0);
+$userId = getStrValueOr($_GET['userId'], "");
+$userPw = getStrValueOr($_GET['userPw'], "");
+$userPwc = getStrValueOr($_GET['userPwc'], "");
+$name = getStrValueOr($_GET['name'], "");
+$nickname = getStrValueOr($_GET['nickname'], "");
+$cellphone = getStrValueOr($_GET['cellphone'], "");
+$email = getStrValueOr($_GET['email'], "");
 
-if ( $id == 0 ) {
-  jsHistoryBackExit("번호를 입력해주세요.");
-}
+if ( $userPw ) {
+  if ( !$userPwc ) {
+    jsHistoryBackExit("비밀번호를 한번 더 입력해주세요.");
+  }
 
-if ( !$userId ) {
-  jsHistoryBackExit("아이디를 입력해주세요.");
-}
-
-if ( !$userPw ) {
-  jsHistoryBackExit("비밀번호를 입력해주세요.");
-}
-
-if ( !$userPwc ) {
-  jsHistoryBackExit("비밀번호를 한번 더 입력해주세요.");
+  if ( $userPw != $userPwc ) {
+    jsHistoryBackExit("비밀번호가 일치하지 않습니다.");
+  }
 }
 
 if ( !$name ) {
@@ -39,16 +38,21 @@ if ( !$email ) {
 
 $sql = "
 UPDATE `member`
-SET regDate = NOW(),
-updateDate = NOW(),
-userId = '$userId',
-userPw = '$userPw',
-userPwc = '$userPwc',
+SET updateDate = NOW(),
+";
+
+if ( $userPw ) {
+  $sql .= "
+  userPw = '$userPw',
+  ";
+}
+
+$sql .= "
 `name` = '$name',
 nickname = '$nickname',
 cellphone = '$cellphone',
 email = '$email'
-WHERE id = '$id';
+WHERE id = '$id'
 ";
 DB__modify($sql);
 

@@ -1,7 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/webInit.php';
 
-
 $userId = $_GET['userId'];
 $userPw = $_GET['userPw'];
 $userPwc = $_GET['userPwc'];

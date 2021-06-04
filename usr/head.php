@@ -25,6 +25,10 @@
     <a href="../member/doLogout.php">로그아웃</a>
     <?php } ?>
 
+    <?php if ( isset($_SESSION['loginedMemberId']) ) { ?>
+        <a href="../member/join.php">회원탈퇴</a>
+    <?php } ?>
+
     <?php if ( !isset($_SESSION['loginedMemberId']) ) { ?>
     <a href="../member/join.php">회원가입</a>
     <?php } ?>

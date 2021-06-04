@@ -20,8 +20,7 @@ if ( !$body ) {
 
 $sql = "
 UPDATE article
-SET regDate = NOW(),
-updateDate = NOW(),
+SET updateDate = NOW(),
 title = '${title}',
 `body` = '${body}'
 WHERE id = '${id}'

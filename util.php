@@ -85,7 +85,3 @@ function jsHistoryBackExit($msg = null) {
   echo "</script>";
   exit;
 }
-function member_leave() {  // 회원 탈퇴 tto
-  if (confirm("회원에서 탈퇴 하시겠습니까?"))
-          location.href = '<?php echo G5_BBS_URL ?>/member_confirm.php?url=member_leave.php';
-}
