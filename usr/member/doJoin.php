@@ -19,7 +19,8 @@ userPwc = '$userPwc',
 `name` = '$name',
 nickname = '$nickname',
 cellphone = '$cellphone',
-email = '$email';
+email = '$email',
+delStatus = 0;
 ";
 
 $id = DB__insert($sql);

@@ -46,7 +46,8 @@ CREATE TABLE `member`(
 	`name` VARCHAR(100) NOT NULL,
 	nickname VARCHAR(100) NOT NULL,
 	cellphone VARCHAR(100) NOT NULL,
-	email VARCHAR(100) NOT NULL
+	email VARCHAR(100) NOT NULL,
+    delStatus int(10) not null
 );
 
 INSERT INTO `member`
@@ -58,7 +59,8 @@ userPwc = 'user1',
 `name` = 'user1',
 nickname = 'user1',
 cellphone = 'user1',
-email = 'user1@test.com';
+email = 'user1@test.com',
+delStatus = 0;
 
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -69,7 +71,8 @@ userPwc = 'user2',
 `name` = 'user2',
 nickname = 'user2',
 cellphone = 'user2',
-email = 'user2@test.com';
+email = 'user2@test.com',
+delStatus = 0;
 
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -80,4 +83,5 @@ userPwc = 'user3',
 `name` = 'user3',
 nickname = 'user3',
 cellphone = 'user3',
-email = 'user3@test.com';
+email = 'user3@test.com',
+delStatus = 0;
