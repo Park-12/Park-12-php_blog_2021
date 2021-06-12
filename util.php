@@ -1,9 +1,17 @@
 <?php
 
-
 class DB__SeqSql {
   private string $templateStr = "";
   private array $params = [];
+
+  public function __toString(): string {
+    $str = '[';
+    $str .= 'SQL=(' . $this->getTemplate() . ')';
+    $str .= ', PARAMS=(' . implode(',', $this->getParams()) . ')';
+    $str .= ']';
+
+    return $str;
+  }
 
   public function add(string $sqlBit, string $param = null) {
     $this->templateStr .= " " . $sqlBit;
@@ -14,7 +22,7 @@ class DB__SeqSql {
   }
 
   public function getTemplate(): string {
-    return $this->templateStr;
+    return trim($this->templateStr);
   }
 
   public function getForBindParam1stArg(): string {

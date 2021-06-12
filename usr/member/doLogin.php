@@ -18,7 +18,7 @@ $sql = DB__secSql();
 $sql->add("SELECT *");
 $sql->add("FROM `member` AS M");
 $sql->add("WHERE M.userId = ?", $userId);
-$sql->add("AND M.userPw = ?", $userPw);
+$sql->add("AND M.userPw = ?", $userPw)
 
 $member = DB__getRow2($sql);
 
