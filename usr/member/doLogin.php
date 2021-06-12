@@ -11,25 +11,16 @@ if ( isset($_GET['userPw']) == false ) {
   exit;
 }
 
-// mysqli_real_escape_string 해킹 방어 방법
-//$loginId = mysqli_real_escape_string($dbConn, $_GET['loginId']);
-//$loginPw = mysqli_real_escape_string($dbConn, $_GET['loginPw']);
-
 $userId = $_GET['userId'];
 $userPw = $_GET['userPw'];
 
-$sql = "
-SELECT *
-FROM `member` AS M
-WHERE M.userId = ?
-AND M.userPw = ?
-";
+$sql = DB__secSql();
+$sql->add("SELECT *");
+$sql->add("FROM `member` AS M");
+$sql->add("WHERE M.userId = ?", $userId);
+$sql->add("AND M.userPw = ?", $userPw);
 
-$stmt = $dbConn->prepare($sql);
-$stmt ->bind_param('ss', $userId, $userPw);
-$stmt ->execute();
-$result = $stmt->get_result();
-$member = $result->fetch_assoc();
+$member = DB__getRow2($sql);
 
 if ( empty($member) ) {
   jsHistoryBackExit("일치하는 회원이 존재하지 않습니다.");
