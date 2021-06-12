@@ -13,5 +13,5 @@ DB__modify($sql);
 ?>
 <script>
 alert('회원 탈퇴되었습니다.');
-location.replace('../article/list.php');
+location.replace('./doLogout.php');
 </script>

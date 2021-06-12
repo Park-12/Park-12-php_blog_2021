@@ -11,43 +11,34 @@ if ( isset($_GET['userPw']) == false ) {
   exit;
 }
 
+// mysqli_real_escape_string 해킹 방어 방법
+//$loginId = mysqli_real_escape_string($dbConn, $_GET['loginId']);
+//$loginPw = mysqli_real_escape_string($dbConn, $_GET['loginPw']);
+
 $userId = $_GET['userId'];
 $userPw = $_GET['userPw'];
 
 $sql = "
 SELECT *
-FROM `member` M
-WHERE userId = '${userId}'
+FROM `member` AS M
+WHERE M.userId = ?
+AND M.userPw = ?
 ";
-$member = DB__getRow($sql);
+
+$stmt = $dbConn->prepare($sql);
+$stmt ->bind_param('ss', $userId, $userPw);
+$stmt ->execute();
+$result = $stmt->get_result();
+$member = $result->fetch_assoc();
 
 if ( empty($member) ) {
-  echo "<script>
-  alert('존재하지 않는 회원입니다.');
-  location.replace('login.php');
-  </script>";
-  exit;
-}
-
-if ( $member['userPw'] != $userPw ) {
-  echo "<script>
-  alert('비밀번호가 일치하지 않습니다.');
-  location.replace('login.php');
-  </script>";
-  exit;
+  jsHistoryBackExit("일치하는 회원이 존재하지 않습니다.");
 }
 
 if ( $member['delStatus'] == 1 ) {
-  echo "<script>
-  alert('존재하지 않는 회원입니다.');
-  location.replace('login.php');
-  </script>";
-  exit;
+  jsHistoryBackExit("일치하는 회원이 존재하지 않습니다.");
 }
 
 $_SESSION['loginedMemberId'] = $member['id'];
-?>
-<script>
-alert('<?=$member['nickname']?>님 환영합니다.');
-location.replace('../article/list.php');
-</script>
+
+jsLocationReplaceExit("../article/list.php", "{$member['nickname']}님 환영합니다.");
