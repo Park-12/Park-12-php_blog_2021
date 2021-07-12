@@ -7,10 +7,10 @@ use App\Container\Container;
 class NeedLoginInterceptor extends Interceptor
 {
     use Container;
-    
+
     function run(string $action): void
     {
-        if ( str_starts_with($action, 'common/') ) {
+        if (str_starts_with($action, 'common/')) {
             return;
         }
 
@@ -22,6 +22,7 @@ class NeedLoginInterceptor extends Interceptor
             case 'usr/article/list':
             case 'usr/article/detail':
             case 'usr/home/aboutMe':
+            case 'usr/home/aboutMe2':
                 return;
         }
 
