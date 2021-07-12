@@ -19,19 +19,39 @@ $utterancPageIdentifier = "/usr/article/detail?id={$article['id']}";
   <div class="container mx-auto">
     <div class="con-pad">
       <div>
-        <a href="list">리스트</a>
-        <a href="modify?id=<?=$article['id']?>">수정</a>
-        <a onclick="if ( confirm('정말 삭제 하시겠습니까?') == false ) return false;" href="doDelete?id=<?=$article['id']?>">삭제</a>
+        <a href="list" class="btn btn-link">리스트</a>
+        <a href="modify?id=<?= $article['id'] ?>" class="btn btn-link">수정</a>
+        <a onclick="if ( confirm('정말 삭제 하시겠습니까?') == false ) return false;" href="doDelete?id=<?= $article['id'] ?>" class="btn btn-link">삭제</a>
       </div>
-      
+
       <hr>
 
-      <div>번호 : <?=$article['id']?></div>
-      <div>작성날짜 : <?=$article['regDate']?></div>
-      <div>수정날짜 : <?=$article['updateDate']?></div>
-      <div>제목 : <?=$article['title']?></div>
-      <script type="text/x-template"><?=$body?></script>
-      <div class="toast-ui-viewer"></div>
+      <div class="mt-4">
+        <div>
+          <div class="badge badge-primary badge-outline">번호</div>
+          <?= $article['id'] ?>
+        </div>
+        <div class="mt-2">
+          <div class="badge badge-primary badge-outline">제목</div>
+          <?= $article['title'] ?>
+        </div>
+        <div class="mt-2">
+          <div class="badge badge-primary badge-outline">작성자</div>
+          <?= $article['extra__writerName'] ?>
+        </div>
+        <div class="mt-2">
+          <div class="badge badge-primary badge-outline">작성날짜</div>
+          <?= $article['regDate'] ?>
+        </div>
+        <div class="mt-2">
+          <div class="badge badge-primary badge-outline">수정날짜</div>
+          <?= $article['updateDate'] ?>
+        </div>
+        <div class="mt-2">
+          <script type="text/x-template"><?= $body ?></script>
+          <div class="toast-ui-viewer"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -40,16 +60,11 @@ $utterancPageIdentifier = "/usr/article/detail?id={$article['id']}";
   <div class="container mx-auto">
     <div class="con-pad">
       <style>
-      .utterances {
-        max-width: 100%;
-      }
+        .utterances {
+          max-width: 100%;
+        }
       </style>
-      <script src="https://utteranc.es/client.js"
-        repo="jhs512/bbb_oa_gg_comment"
-        issue-term="<?=$utterancPageIdentifier?>"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
+      <script src="https://utteranc.es/client.js" repo="jhs512/github.com-jhs512-php_blog_2021_deployment_3rd" issue-term="<?= $utterancPageIdentifier ?>" theme="github-light" crossorigin="anonymous" async>
       </script>
     </div>
   </div>
