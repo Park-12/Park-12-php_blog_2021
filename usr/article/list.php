@@ -1,11 +1,10 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/webinit.php';
 
-$sql = "
-SELECT *
-FROM article AS A
-ORDER BY A.id DESC
-";
+$sql = DB__secSql();
+$sql->add("SELECT *");
+$sql->add("FROM article AS A");
+$sql->add("ORDER BY A.id DESC");
 $articles = DB__getRows($sql)
 ?>
 <?php
@@ -15,15 +14,15 @@ $pageTitle = "게시물 리스트";
 
 <hr>
 <div>
-  <?php foreach( $articles as $article ) { ?>
-  <?php
+  <?php foreach ($articles as $article) { ?>
+    <?php
     $detialUri = "detail.php?id=${article['id']}";
-  ?>
-  <a href="<?=$detialUri?>">번호 : <?=$article['id']?></a><br>
-  작성 : <?=$article['regDate']?><br>
-  수정 : <?=$article['updateDate']?><br>
-  <a href="<?=$detialUri?>">제목 : <?=$article['title']?></a><br>
-  <hr>
+    ?>
+    <a href="<?= $detialUri ?>">번호 : <?= $article['id'] ?></a><br>
+    작성 : <?= $article['regDate'] ?><br>
+    수정 : <?= $article['updateDate'] ?><br>
+    <a href="<?= $detialUri ?>">제목 : <?= $article['title'] ?></a><br>
+    <hr>
   <?php } ?>
 </div>
-<?php require_once __DIR__ . "/../foot.php"; ?> 
+<?php require_once __DIR__ . "/../foot.php"; ?>

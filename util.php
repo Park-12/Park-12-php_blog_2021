@@ -1,10 +1,12 @@
 <?php
 
-class DB__SeqSql {
+class DB__SeqSql
+{
   private string $templateStr = "";
   private array $params = [];
 
-  public function __toString(): string {
+  public function __toString(): string
+  {
     $str = '[';
     $str .= 'SQL=(' . $this->getTemplate() . ')';
     $str .= ', PARAMS=(' . implode(',', $this->getParams()) . ')';
@@ -13,121 +15,137 @@ class DB__SeqSql {
     return $str;
   }
 
-  public function add(string $sqlBit, string $param = null) {
+  public function add(string $sqlBit, string $param = null)
+  {
     $this->templateStr .= " " . $sqlBit;
 
-    if ( $param ) {
+    if ($param) {
       $this->params[] = $param;
     }
   }
 
-  public function getTemplate(): string {
+  public function getTemplate(): string
+  {
     return trim($this->templateStr);
   }
 
-  public function getForBindParam1stArg(): string {
+  public function getForBindParam1stArg(): string
+  {
     $paramTypesStr = "";
 
     $count = count($this->params);
 
-    for ( $i = 0; $i < $count; $i++ ) {
+    for ($i = 0; $i < $count; $i++) {
       $paramTypesStr .= "s";
     }
 
     return $paramTypesStr;
   }
 
-  public function getParams(): array {
+  public function getParams(): array
+  {
     return $this->params;
+  }
+
+  public function getParamsCount(): int
+  {
+    return count($this->params);
   }
 }
 
-function DB__secSql() {
-  /*
-  $stmt = $dbConn->prepare($sql);
-  $stmt->bind_param('ss', $loginId, $loginPw);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  */
-
+function DB__secSql()
+{
   return new DB__SeqSql();
 }
 
-function DB__getRow2(DB__SeqSql $sql) {
+function DB__getStmtFromSecSql(DB__SeqSql $sql): mysqli_stmt
+{
   global $dbConn;
   $stmt = $dbConn->prepare($sql->getTemplate());
-  $stmt->bind_param($sql->getForBindParam1stArg(), ...$sql->getParams());
+  if ($sql->getParamsCount()) {
+    $stmt->bind_param($sql->getForBindParam1stArg(), ...$sql->getParams());
+  }
+
+  return $stmt;
+}
+
+function DB__getRow(DB__SeqSql $sql)
+{
+  $rows = DB__getRows($sql);
+
+  if (isset($rows[0])) {
+    return $rows[0];
+  }
+
+  return null;
+}
+
+function DB__getRows(DB__SeqSql $sql)
+{
+  $stmt = DB__getStmtFromSecSql($sql);
   $stmt->execute();
   $result = $stmt->get_result();
-  return $result->fetch_assoc();
-}
-function DB__getRow($sql) {
-  global $dbConn;
-  $rs = mysqli_query($dbConn, $sql);
-  $row = mysqli_fetch_assoc($rs);
-
-  return $row;
-}
-
-function DB__getRows($sql) {
-  global $dbConn;
-  $rs = mysqli_query($dbConn, $sql);
-
   $rows = [];
 
-  while ( $row = mysqli_fetch_assoc($rs) ) {
+  while ($row = $result->fetch_assoc()) {
     $rows[] = $row;
   }
 
   return $rows;
 }
 
-function DB__insert($sql) {
+function DB__execute(DB__SeqSql $sql)
+{
+  $stmt = DB__getStmtFromSecSql($sql);
+  $stmt->execute();
+}
+
+function DB__insert(DB__SeqSql $sql)
+{
   global $dbConn;
-  mysqli_query($dbConn, $sql);
+  DB__execute($sql);
 
   return mysqli_insert_id($dbConn);
 }
 
-function DB__update($sql) {
-  global $dbConn;
-  mysqli_query($dbConn, $sql);
+function DB__update(DB__SeqSql $sql)
+{
+  DB__execute($sql);
 }
 
-function DB__delete($sql) {
-  global $dbConn;
-  mysqli_query($dbConn, $sql);
+function DB__delete($sql)
+{
+  DB__execute($sql);
 }
 
-function DB__modify($sql) {
-    global $dbConn;
-    mysqli_query($dbConn, $sql);
-}
-  
-function getIntValueOr(&$value, $defaultValue) {
-  if ( isset($value) ) {
+function getIntValueOr(&$value, $defaultValue)
+{
+  if (isset($value)) {
     return intval($value);
   }
 
   return $defaultValue;
 }
 
-function getStrValueOr(&$value, $defaultValue) {
-  if ( isset($value) ) {
+function getStrValueOr(&$value, $defaultValue)
+{
+  if (isset($value)) {
     return strval($value);
   }
 
   return $defaultValue;
 }
 
-function jsAlert($msg) {
+function jsAlert($msg)
+{
   echo "<script>";
   echo "alert('${msg}');";
   echo "</script>";
 }
 
-function jsLocationReplaceExit($url, $msg = null) {
-  if ( $msg ) {
+function jsLocationReplaceExit($url, $msg = null)
+{
+  if ($msg) {
     jsAlert($msg);
   }
 
@@ -137,8 +155,9 @@ function jsLocationReplaceExit($url, $msg = null) {
   exit;
 }
 
-function jsHistoryBackExit($msg = null) {
-  if ( $msg ) {
+function jsHistoryBackExit($msg = null)
+{
+  if ($msg) {
     jsAlert($msg);
   }
 
