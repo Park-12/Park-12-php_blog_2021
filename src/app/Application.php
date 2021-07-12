@@ -9,7 +9,8 @@ use App\Interceptor\NeedLogoutInterceptor;
 
 class Application
 {
-    function getTempSitemapFilePath(): string {
+    function getTempSitemapFilePath(): string
+    {
         $envCode = $this->getEnvCode();
 
         $dir = "";
@@ -20,7 +21,7 @@ class Application
             $dir = "/tmp";
         }
 
-        if ( !is_dir($dir) ) {
+        if (!is_dir($dir)) {
             mkdir($dir);
         }
 
@@ -31,7 +32,7 @@ class Application
 
     function getEnvCode(): string
     {
-        if ($_SERVER['DOCUMENT_ROOT'] == '/web/2021_04_full/site00/public') {
+        if ($_SERVER['DOCUMENT_ROOT'] == '/web/2021_04_full/site04/public') {
             return 'prod';
         }
 
@@ -40,14 +41,16 @@ class Application
 
     function getProdSiteDomain(): string
     {
-        return "bbb.oa.gg";
+        return "b.shsh.kr";
     }
 
-    function getProdSiteProtocol(): string {
+    function getProdSiteProtocol(): string
+    {
         return "https";
     }
 
-    function getProdSiteBaseUrl() {
+    function getProdSiteBaseUrl()
+    {
         return $this->getProdSiteProtocol() . "://" . $this->getProdSiteDomain();
     }
 
@@ -62,9 +65,9 @@ class Application
             $dbName = "php_blog_2021";
         } else {
             $dbHost = "127.0.0.1";
-            $dbId = "st__2021_04_full__site00";
+            $dbId = "st__2021_04_full__site04";
             $dbPw = "1234";
-            $dbName = "st__2021_04_full__site00";
+            $dbName = "st__2021_04_full__site04";
         }
 
         $dbConn = mysqli_connect($dbHost, $dbId, $dbPw, $dbName) or die("DB CONNECTION ERROR");
@@ -109,7 +112,7 @@ class Application
 
     private function runInterceptors(string $action)
     {
-        $run = function (Interceptor...$interceptors) use ($action) {
+        $run = function (Interceptor ...$interceptors) use ($action) {
             foreach ($interceptors as $interceptor) {
                 $interceptor->run($action);
             }
